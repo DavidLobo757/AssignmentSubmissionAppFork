@@ -65,14 +65,14 @@ public class PrimaryDbConfig {
 
         Map<String, String> properties = new HashMap<>();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         properties.put("hibernate.implicit_naming_strategy",
                 "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
         properties.put("hibernate.physical_naming_strategy",
                 "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
         em.setJpaVendorAdapter(adapter);
         em.getJpaPropertyMap().putAll(properties);
-
+        
         return em;
     }
 

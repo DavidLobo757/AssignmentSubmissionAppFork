@@ -39,7 +39,7 @@ public class ProffessoDbConfig {
 
         return DataSourceBuilder.create()
                 .driverClassName("com.mysql.cj.jdbc.Driver")
-                .url("jdbc:mysql://localhost:3306/proffessoproddb")
+                .url("jdbc:mysql://localhost:3306/professo_testing_db")
                 .username(dbUsername)
                 .password(dbPassword)
                 .build();
@@ -58,7 +58,7 @@ public class ProffessoDbConfig {
 
         Map<String, String> properties = new HashMap<>();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         properties.put("hibernate.show-sql", "true");
         properties.put("hibernate.implicit_naming_strategy",
                 "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");

@@ -25,11 +25,11 @@ import java.util.List;
 
 @Service
 public class NotificationService {
-    @Value("${mail.username}")
+    @Value("example@yahoo.com")
     private String username;
-    @Value("${mail.password}")
+    @Value("examplePassword")
     private String password;
-    @Value("#{'${emails.codeReviewers}'.split(',')}")
+    @Value("example@yahoo.com")
     private List<String> codeReviewers;
 
     @Autowired

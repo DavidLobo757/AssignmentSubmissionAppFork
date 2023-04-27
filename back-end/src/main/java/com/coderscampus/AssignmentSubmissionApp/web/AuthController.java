@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coderscampus.AssignmentSubmissionApp.domain.User;
 import com.coderscampus.AssignmentSubmissionApp.dto.AuthCredentialsRequest;
+import com.coderscampus.AssignmentSubmissionApp.service.SeedService;
 import com.coderscampus.AssignmentSubmissionApp.util.JwtUtil;
+import com.coderscampus.proffesso.service.ProffessoSeedService;
 
 import ch.qos.logback.core.util.Duration;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -40,9 +42,20 @@ public class AuthController {
     private JwtUtil jwtUtil;
     @Value("${cookies.domain}")
     private String domain;
-
+    
+    @Autowired
+    private SeedService seedService;
+    
+    @Autowired
+    private ProffessoSeedService proffessoSeedService;
+    
+    
+    
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AuthCredentialsRequest request) {
+    	
+    	proffessoSeedService.seedUsersTable();
+    	
         try {
             Authentication authenticate = authenticationManager
                     .authenticate(
@@ -61,6 +74,7 @@ public class AuthController {
             return ResponseEntity.ok()
                     .header(HttpHeaders.SET_COOKIE, cookie.toString())
                     .body(token);
+            
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -69,6 +83,7 @@ public class AuthController {
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(@CookieValue(name = "jwt") String token,
             @AuthenticationPrincipal User user) {
+    	
         try {
             Boolean isValidToken = jwtUtil.validateToken(token, user);
             return ResponseEntity.ok(isValidToken);

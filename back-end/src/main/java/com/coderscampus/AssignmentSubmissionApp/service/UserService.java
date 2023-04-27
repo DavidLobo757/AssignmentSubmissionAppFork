@@ -30,7 +30,9 @@ public class UserService {
     private AuthorityRepository authorityRepo;
     @Autowired
     private CustomPasswordEncoder customPasswordEncoder;
-
+   
+    
+    
     public Optional<User> findUserByUsername(String username) {
         return userRepo.findByUsername(username);
     }
@@ -52,6 +54,7 @@ public class UserService {
     public User duplicateProffessoUser(ProffessoUser proffessoUser) {
         User user = new User(proffessoUser, Optional.empty());
         user = userRepo.save(user);
+       
         return user;
     }
 
